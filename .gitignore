@@ -133,3 +133,14 @@ uploads_temp/
 **/bin/
 **/log/
 **/tmp/
+
+# Visual Studio
+.vs/
+**/.vs/
+
+# .NET
+bin/
+obj/
+**/bin/
+**/obj/
+
