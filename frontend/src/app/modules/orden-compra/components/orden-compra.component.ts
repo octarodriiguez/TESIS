@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { OrdenCompraService } from '../services/orden-compra.service';
 import { OrdenCompra } from '../models/orden-compra.model';
 import { OrdenCompraFormComponent } from './orden-compra-form/orden-compra-form.component';
-import { AlertasService } from '../../../../../No-Frontend/src/app/core/services/alertas';
+import { AlertasService } from '../../../core/services/alertas';
 
 @Component({
   selector: 'app-orden-compra',
   standalone: true,
-  imports: [CommonModule, FormsModule, OrdenCompraFormComponent],
+  imports: [CommonModule, FormsModule, OrdenCompraComponent],
   templateUrl: './orden-compra.component.html',
   styleUrls: ['./orden-compra.component.css']
 })
