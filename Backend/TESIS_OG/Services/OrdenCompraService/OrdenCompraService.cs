@@ -207,5 +207,70 @@ namespace TESIS_OG.Services.OrdenCompraService
 
             return true;
         }
+
+        public async Task<OrdenCompraIndexDTO?> RegistrarRecepcionAsync(OrdenCompraReceiveDTO recepcionDto)
+        {
+            // 1. Buscar la orden de compra
+            var orden = await _context.OrdenCompras
+                .Include(o => o.DetalleOrdenCompras)
+                .FirstOrDefaultAsync(o => o.IdOrdenCompra == recepcionDto.IdOrdenCompra);
+
+            if (orden == null) return null;
+
+            // 2. Validar que la orden esté en estado válido para recibir
+            if (orden.Estado == "Recibida" || orden.Estado == "Cancelada")
+            {
+                return null; // No se puede recibir una orden ya recibida o cancelada
+            }
+
+            // 3. Validar que todos los insumos existan
+            foreach (var detalle in recepcionDto.Detalles)
+            {
+                var insumo = await _context.Insumos
+                    .FirstOrDefaultAsync(i => i.IdInsumo == detalle.IdInsumo);
+
+                if (insumo == null) return null;
+
+                if (detalle.CantidadRecibida <= 0) return null;
+            }
+
+            // 4. Actualizar el stock de cada insumo
+            foreach (var detalle in recepcionDto.Detalles)
+            {
+                var insumo = await _context.Insumos
+                    .FirstOrDefaultAsync(i => i.IdInsumo == detalle.IdInsumo);
+
+                if (insumo != null)
+                {
+                    // Incrementar el stock
+                    insumo.StockActual += detalle.CantidadRecibida;
+                    insumo.FechaActualizacion = DateOnly.FromDateTime(DateTime.Now);
+                }
+
+                // 5. Registrar el movimiento de inventario
+                var movimiento = new InventarioMovimiento
+                {
+                    IdInsumo = detalle.IdInsumo,
+                    IdOrdenCompra = orden.IdOrdenCompra,
+                    TipoMovimiento = "Entrada",
+                    Cantidad = detalle.CantidadRecibida,
+                    FechaMovimiento = DateOnly.Parse(recepcionDto.FechaRecepcion),
+                    Origen = "Recepción de Orden de Compra",
+                    Observacion = detalle.ObservacionDetalle ?? recepcionDto.Observacion,
+                    IdUsuario = recepcionDto.IdUsuario
+                };
+
+                _context.InventarioMovimientos.Add(movimiento);
+            }
+
+            // 6. Actualizar el estado de la orden a "Recibida"
+            orden.Estado = "Recibida";
+
+            // 7. Guardar todos los cambios
+            await _context.SaveChangesAsync();
+
+            // 8. Retornar la orden actualizada
+            return await ObtenerOrdenPorIdAsync(orden.IdOrdenCompra);
+        }
     }
 }

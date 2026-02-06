@@ -746,6 +746,48 @@
         }
       }
     },
+    "/api/OrdenCompra/{id}/receive": {
+      "post": {
+        "tags": [
+          "OrdenCompra"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenCompraReceiveDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenCompraReceiveDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenCompraReceiveDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Proveedor": {
       "get": {
         "tags": [
@@ -1587,6 +1629,30 @@
         },
         "additionalProperties": false
       },
+      "DetalleRecepcionDTO": {
+        "required": [
+          "cantidadRecibida",
+          "idInsumo"
+        ],
+        "type": "object",
+        "properties": {
+          "idInsumo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cantidadRecibida": {
+            "maximum": 1.7976931348623157E+308,
+            "minimum": 0.01,
+            "type": "number",
+            "format": "double"
+          },
+          "observacionDetalle": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "InsumoCreateDTO": {
         "type": "object",
         "properties": {
@@ -1845,6 +1911,40 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/DetalleOrdenCompraDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrdenCompraReceiveDTO": {
+        "required": [
+          "fechaRecepcion",
+          "idOrdenCompra",
+          "idUsuario"
+        ],
+        "type": "object",
+        "properties": {
+          "idOrdenCompra": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fechaRecepcion": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "observacion": {
+            "type": "string",
+            "nullable": true
+          },
+          "idUsuario": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "detalles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetalleRecepcionDTO"
             },
             "nullable": true
           }

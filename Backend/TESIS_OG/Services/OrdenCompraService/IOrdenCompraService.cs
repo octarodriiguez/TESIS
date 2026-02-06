@@ -9,5 +9,6 @@ namespace TESIS_OG.Services.OrdenCompraService
         Task<OrdenCompraIndexDTO?> ObtenerOrdenPorIdAsync(int id);
         Task<OrdenCompraIndexDTO?> ActualizarOrdenCompraAsync(int id, OrdenCompraEditDTO ordenDto);
         Task<bool> EliminarOrdenCompraAsync(int id);
+        Task<OrdenCompraIndexDTO?> RegistrarRecepcionAsync(OrdenCompraReceiveDTO recepcionDto);
     }
 }

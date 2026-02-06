@@ -86,5 +86,34 @@ namespace TESIS_OG.Controllers
 
             return Ok(new { message = "Orden de compra eliminada exitosamente" });
         }
+
+        /// <summary>
+        /// Registrar la recepción de una orden de compra
+        /// Actualiza automáticamente el stock de los insumos recibidos
+        /// </summary>
+        [HttpPost("{id}/receive")]
+        public async Task<IActionResult> RegistrarRecepcion(int id, [FromBody] OrdenCompraReceiveDTO recepcionDto)
+        {
+            // Validar que el ID de la ruta coincida con el del DTO
+            if (id != recepcionDto.IdOrdenCompra)
+                return BadRequest(new { message = "El ID de la orden no coincide con el ID proporcionado" });
+
+            if (!ModelState.IsValid)
+                return BadRequest(new { message = "Datos inválidos", errors = ModelState });
+
+            var result = await _ordenCompraService.RegistrarRecepcionAsync(recepcionDto);
+
+            if (result == null)
+                return BadRequest(new
+                {
+                    message = "No se pudo registrar la recepción. Verifique que la orden exista, no esté recibida previamente, y las cantidades sean válidas."
+                });
+
+            return Ok(new
+            {
+                message = "Recepción registrada exitosamente. Stock actualizado.",
+                data = result
+            });
+        }
     }
 }

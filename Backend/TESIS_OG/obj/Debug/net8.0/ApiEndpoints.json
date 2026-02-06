@@ -456,6 +456,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TESIS_OG.Controllers.OrdenCompraController",
+    "Method": "RegistrarRecepcion",
+    "RelativePath": "api/OrdenCompra/{id}/receive",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "recepcionDto",
+        "Type": "TESIS_OG.DTOs.OrdenCompra.OrdenCompraReceiveDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TESIS_OG.Controllers.ProveedorController",
     "Method": "ObtenerProveedores",
     "RelativePath": "api/Proveedor",
