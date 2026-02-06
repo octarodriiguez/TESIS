@@ -9,7 +9,7 @@ import { AlertasService } from '../../../core/services/alertas';
 @Component({
   selector: 'app-orden-compra',
   standalone: true,
-  imports: [CommonModule, FormsModule, OrdenCompraComponent],
+  imports: [CommonModule, FormsModule, OrdenCompraFormComponent],
   templateUrl: './orden-compra.component.html',
   styleUrls: ['./orden-compra.component.css']
 })
@@ -25,7 +25,7 @@ export class OrdenCompraComponent implements OnInit {
   constructor(
     private ordenCompraService: OrdenCompraService,
     private alertas: AlertasService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarOrdenes();
