@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OrdenCompra, NuevaOrdenCompra, Proveedor, Insumo } from '../models/orden-compra.model';
+import { OrdenCompraReceiveDTO } from '../models/orden-compra-receive.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,10 @@ export class OrdenCompraService {
 
   eliminarOrden(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  registrarRecepcion(id: number, recepcion: OrdenCompraReceiveDTO): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${id}/receive`, recepcion);
   }
 
   // Proveedores

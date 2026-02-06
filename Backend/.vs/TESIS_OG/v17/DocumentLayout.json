@@ -280,7 +280,7 @@
               "RelativeDocumentMoniker": "TESIS_OG\\Models\\InventarioMovimiento.cs",
               "ToolTip": "C:\\Users\\fraan\\OneDrive\\Documentos\\GitHub\\TESIS\\Backend\\TESIS_OG\\Models\\InventarioMovimiento.cs",
               "RelativeToolTip": "TESIS_OG\\Models\\InventarioMovimiento.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAA3wB8AAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwB8AAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-05T02:15:28.317Z",
               "EditorCaption": ""
@@ -319,8 +319,7 @@
               "RelativeToolTip": "TESIS_OG\\DTOs\\OrdenCompra\\OrdenCompraReceiveDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T20:58:25.623Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T20:58:25.623Z"
             },
             {
               "$type": "Document",
@@ -344,8 +343,7 @@
               "RelativeToolTip": "TESIS_OG\\Services\\OrdenCompraService\\OrdenCompraService.cs",
               "ViewState": "AgIAAOcAAAAAAAAAAAAYwAABAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-29T03:26:49.904Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-29T03:26:49.904Z"
             },
             {
               "$type": "Document",
