@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { OrdenCompraService } from '../services/orden-compra.service';
 import { OrdenCompra } from '../models/orden-compra.model';
 import { OrdenCompraFormComponent } from './orden-compra-form/orden-compra-form.component';
+import { OrdenCompraReceiveComponent } from './orden-compra-receive/orden-compra-receive.component';
 import { AlertasService } from '../../../core/services/alertas';
 
 @Component({
   selector: 'app-orden-compra',
   standalone: true,
-  imports: [CommonModule, FormsModule, OrdenCompraFormComponent],
+  imports: [CommonModule, FormsModule, OrdenCompraFormComponent, OrdenCompraReceiveComponent],
   templateUrl: './orden-compra.component.html',
   styleUrls: ['./orden-compra.component.css']
 })
@@ -17,6 +18,7 @@ export class OrdenCompraComponent implements OnInit {
   ordenes: OrdenCompra[] = [];
   mostrarFormulario = false;
   mostrarDetalle = false;
+  mostrarRecepcion = false;
   ordenSeleccionada: OrdenCompra | null = null;
   loading = false;
   error = false;
@@ -79,6 +81,30 @@ export class OrdenCompraComponent implements OnInit {
   cerrarDetalle(): void {
     this.mostrarDetalle = false;
     this.ordenSeleccionada = null;
+  }
+
+  abrirRecepcion(orden: OrdenCompra): void {
+    this.ordenSeleccionada = orden;
+    this.mostrarDetalle = false;
+    this.mostrarRecepcion = true;
+  }
+
+  cerrarRecepcion(): void {
+    this.mostrarRecepcion = false;
+    this.ordenSeleccionada = null;
+  }
+
+  async rechazarOrden(orden: OrdenCompra): Promise<void> {
+    const confirmado = await this.alertas.confirmar(
+      '¿Rechazar orden de compra?',
+      `Se rechazará la orden ${orden.nroOrden}. Esta acción no se puede deshacer.`,
+      'Sí, rechazar'
+    );
+
+    if (confirmado) {
+      // TODO: Implementar endpoint de rechazo en el backend
+      this.alertas.info('Funcionalidad pendiente', 'El rechazo de órdenes aún no está implementado en el backend');
+    }
   }
 
   async eliminarOrden(orden: OrdenCompra, event: Event): Promise<void> {

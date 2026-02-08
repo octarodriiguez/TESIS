@@ -35,8 +35,8 @@ export class OrdenCompraService {
   }
 
   registrarRecepcion(id: number, recepcion: OrdenCompraReceiveDTO): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/${id}/receive`, recepcion);
-  }
+  return this.http.post<any>(`${this.apiUrl}/${id}/receive`, recepcion);
+}
 
   // Proveedores
   obtenerProveedores(): Observable<Proveedor[]> {

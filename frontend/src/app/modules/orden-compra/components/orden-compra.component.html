@@ -6,12 +6,8 @@
 
     <div class="toolbar">
       <div class="search-box">
-        <input
-          type="text"
-          [(ngModel)]="terminoBusqueda"
-          placeholder="Buscar por número, proveedor o estado..."
-          class="search-input"
-        />
+        <input type="text" [(ngModel)]="terminoBusqueda" placeholder="Buscar por número, proveedor o estado..."
+          class="search-input" />
       </div>
 
       <button class="btn-nuevo" (click)="abrirFormularioNuevo()">
@@ -47,11 +43,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="let orden of ordenesFiltradas"
-          (click)="abrirDetalle(orden)"
-          class="fila-clickeable"
-        >
+        <tr *ngFor="let orden of ordenesFiltradas" (click)="abrirDetalle(orden)" class="fila-clickeable">
           <td>
             <strong>{{ orden.nroOrden }}</strong>
           </td>
@@ -68,11 +60,7 @@
           </td>
           <td>
             <div class="acciones">
-              <button
-                class="btn-eliminar"
-                (click)="eliminarOrden(orden, $event)"
-                title="Eliminar"
-              >
+              <button class="btn-eliminar" (click)="eliminarOrden(orden, $event)" title="Eliminar">
                 Eliminar
               </button>
             </div>
@@ -100,11 +88,8 @@
   </div>
 
   <!-- Modal Formulario -->
-  <app-orden-compra-form
-    *ngIf="mostrarFormulario"
-    (cerrar)="cerrarFormulario()"
-    (ordenCreada)="cargarOrdenes()"
-  ></app-orden-compra-form>
+  <app-orden-compra-form *ngIf="mostrarFormulario" (cerrar)="cerrarFormulario()"
+    (ordenCreada)="cargarOrdenes()"></app-orden-compra-form>
 
   <!-- Modal Detalle -->
   <div *ngIf="mostrarDetalle && ordenSeleccionada" class="modal-overlay" (click)="cerrarDetalle()">
@@ -165,7 +150,19 @@
 
       <div class="modal-footer">
         <button class="btn-secondary" (click)="cerrarDetalle()">Cerrar</button>
+        <button *ngIf="ordenSeleccionada.estado === 'Pendiente' || ordenSeleccionada.estado === 'Aprobada'"
+          class="btn-danger" (click)="rechazarOrden(ordenSeleccionada)">
+          Rechazar
+        </button>
+        <button *ngIf="ordenSeleccionada.estado === 'Pendiente' || ordenSeleccionada.estado === 'Aprobada'"
+          class="btn-primary" (click)="abrirRecepcion(ordenSeleccionada)">
+          Recibir Orden
+        </button>
       </div>
     </div>
   </div>
+
+  <!-- Modal Recepción -->
+  <app-orden-compra-receive *ngIf="mostrarRecepcion && ordenSeleccionada" [orden]="ordenSeleccionada"
+    (cerrar)="cerrarRecepcion()" (recepcionRegistrada)="cargarOrdenes()"></app-orden-compra-receive>
 </div>
